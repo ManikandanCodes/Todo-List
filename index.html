@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Todo List</title>
+  <link rel="stylesheet" href="style.css" />
+
+
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet" />
+  
+</head>
+<body>
+  <div class="container">
+  <h2>Todo List</h2>
+
+  <input id="addtask" type="text">
+  <button id="submit">Add Task</button>
+  <ul id="list"></ul>
+
+  <div>
+    <h3>Completed</h3>
+    <ul id="complete_list"></ul>
+  </div>
+</div> 
+  <script>
+    let submit = document.getElementById("submit");
+    let addtask = document.getElementById("addtask");
+    let list = [];
+    let todolist = document.getElementById("list");
+    let complete_list = document.getElementById("complete_list");
+
+    submit.addEventListener("click", () => {  
+      if (addtask.value !== "") {
+        let taskId = list.length;
+        list.push(addtask.value);
+
+        let li = document.createElement("li");
+        li.id = taskId;
+        li.textContent = addtask.value;
+
+        let doneButton = document.createElement("button");
+        doneButton.textContent = "Done";
+        doneButton.onclick = () => complete(taskId);
+
+        li.appendChild(doneButton);
+        todolist.appendChild(li);
+
+        addtask.value = "";
+      }
+    });
+
+    function complete(id) {
+      let taskItem = document.getElementById(id);
+      if (taskItem) {
+        complete_list.innerHTML += `<li>${list[id]}</li>`;
+        taskItem.style.display = "none";
+      }
+    }
+  </script>
+</body>
+</html>
